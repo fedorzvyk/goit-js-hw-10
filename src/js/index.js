@@ -44,7 +44,7 @@ function renderHTML(name) {
             'Too many matches found. Please enter a more specific name.',
             notifyOptions
           );
-        } else if (data.length > 2) {
+        } else if (data.length >= 2) {
           const markupcountyList = data
             .map(
               item => `<li class="country-item">
@@ -54,7 +54,7 @@ function renderHTML(name) {
             )
             .join('');
           countyList.innerHTML = markupcountyList;
-        } else if ((data.length = 1)) {
+        } else {
           const markupcountryInfo = `
           <img class="flag" src = "${
             data[0].flags.svg
