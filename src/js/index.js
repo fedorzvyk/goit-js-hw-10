@@ -11,12 +11,12 @@ const notifyOptions = {
 };
 
 const inputRef = document.querySelector('#search-box');
-const countyList = document.querySelector('.country-list');
+const countryList = document.querySelector('.country-list');
 const countryInfo = document.querySelector('.country-info');
 
 inputRef.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 
-countyList.addEventListener('click', choiseCountryOnClick);
+countryList.addEventListener('click', choiseCountryOnClick);
 
 function onInput() {
   name = inputRef.value.trim();
@@ -34,7 +34,7 @@ function choiseCountryOnClick(e) {
 
 function renderHTML(name) {
   if (name != '') {
-    countyList.innerHTML = '';
+    countryList.innerHTML = '';
     countryInfo.innerHTML = '';
 
     fetchCountries(name)
@@ -44,8 +44,8 @@ function renderHTML(name) {
             'Too many matches found. Please enter a more specific name.',
             notifyOptions
           );
-        } else if (data.length >= 2) {
-          const markupcountyList = data
+        } else if (data.length > 1) {
+          const markupcountryList = data
             .map(
               item => `<li class="country-item">
             <img src = "${item.flags.svg}" alt="Flag" width = "50px"/>
@@ -53,7 +53,7 @@ function renderHTML(name) {
             </li>`
             )
             .join('');
-          countyList.innerHTML = markupcountyList;
+          countryList.innerHTML = markupcountryList;
         } else {
           const markupcountryInfo = `
           <img class="flag" src = "${
