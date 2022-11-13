@@ -1,4 +1,6 @@
 import '../css/styles.css';
+import countryListMarkup from '../templates/countriesList.hbs';
+import countryInfoMarkup from '../templates/countryInfo.hbs';
 import debounce from 'lodash.debounce';
 import { fetchCountries } from './fetchCountries';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -45,31 +47,9 @@ function renderHTML(name) {
             notifyOptions
           );
         } else if (data.length > 2) {
-          const markupcountyList = data
-            .map(
-              item => `<li class="country-item">
-            <img src = "${item.flags.svg}" alt="Flag" width = "50px"/>
-            <h3>${item.name.official}</h3>
-            </li>`
-            )
-            .join('');
-          countyList.innerHTML = markupcountyList;
+          countyList.innerHTML = countryListMarkup(data);
         } else if ((data.length = 1)) {
-          const markupcountryInfo = `
-          <img class="flag" src = "${
-            data[0].flags.svg
-          }" alt="Flag" width="100px"/>
-            <h2 class="country-name">${data[0].name.official}</h2>
-                     <p class="capital-name"><span style="font-weight:700">Capital:</span> ${
-                       data[0].capital
-                     }</p>
-                     <p class="population"><span style="font-weight:700">Population:</span> ${
-                       data[0].population
-                     }</p>
-                     <p class="languages"><span style="font-weight:700">Languages:</span> ${Object.values(
-                       data[0].languages
-                     )}</p>`;
-          countryInfo.innerHTML = markupcountryInfo;
+          countryInfo.innerHTML = countryInfoMarkup(data);
         }
       })
       .catch(error => {
